@@ -67,7 +67,7 @@ hill_noise.newNoise = function(sizes,seed) -- sizes is a list of wavelengths bet
     for i=1,#sizes+2 do -- extra offsets for extra dims
         table.insert(offsets,math.random()*2*pi)
         if i <= #sizes then
-            sigma = sigma + (sizes[i]/2)*(sizes[i]/2)
+            sigma = sigma + (sizes[i]/4)*(sizes[i]/4)
         end
     end
 
@@ -93,9 +93,7 @@ hill_noise.newNoise = function(sizes,seed) -- sizes is a list of wavelengths bet
                 noiseadd = wavelength*0.5*(sin(offsets[i]+u/wavelength)+sin(offsets[i+1]+v/wavelength))
             end
             if dims == 3 then
-                if i>1 then
-                    rot1 = rot2
-                end
+                local rot1, rot2 = (golden % 1)*2*pi, (2*golden % 1)*2*pi
                 rot2 = ((i+1)*golden % 1)*2*pi
                 local sin1 = sin(rot1)
                 local cos1 = cos(rot1)
@@ -105,6 +103,7 @@ hill_noise.newNoise = function(sizes,seed) -- sizes is a list of wavelengths bet
                 local v = (x*sin1 + y*cos1)*cos2 - z*sin2
                 local w = (x*sin1 + y*cos1)*sin2 + z*cos2
                 noiseadd = wavelength*0.5*(sin(offsets[i] + u/wavelength) + sin(offsets[i+1] + v/wavelength) + sin(offsets[i+2] + w/wavelength))                
+                rot1, rot2 = rot1, ((i+1)*golden % 1)*2*pi
             end
             val = val + noiseadd
         end
