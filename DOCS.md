@@ -1,4 +1,4 @@
-A noise algorithm by Bruce Hill, based of interfering sine waves, modified and adapted by MisterE with help from Luatic
+A noise algorithm by Bruce Hill, based of interfering sine waves, modified and adapted by MisterE
 
 The noise produces values solidly bewteen 0 and 1, with the maximum and minimum value influenced by the maximum size passed in `sizes`, a size of 1 producing the maximum value.
 

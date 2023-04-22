@@ -67,9 +67,11 @@ hill_noise.newNoise = function(sizes,seed) -- sizes is a list of wavelengths bet
     for i=1,#sizes+2 do -- extra offsets for extra dims
         table.insert(offsets,math.random()*2*pi)
         if i <= #sizes then
-            sigma = sigma + (sizes[i]/4)*(sizes[i]/4)
+            local size = sizes[i]/2
+            sigma = sigma + (size/2)*(size/2)
         end
     end
+    sigma = math.sqrt(sigma)
 
 
 
@@ -86,6 +88,9 @@ hill_noise.newNoise = function(sizes,seed) -- sizes is a list of wavelengths bet
         local rot2 = 0
         for i,wavelength in ipairs(sizes) do
             local noiseadd = 0
+            if dims == 1 then
+                noiseadd = wavelength*0.5*(sin(offsets[i]+x/wavelength))
+            end
             if dims == 2 then
                 local rot = (i*golden % 1)*2*pi
                 u = x*cos(rot)-y*sin(rot)
@@ -107,7 +112,7 @@ hill_noise.newNoise = function(sizes,seed) -- sizes is a list of wavelengths bet
             end
             val = val + noiseadd
         end
-        val = val/(2*sigma)
+        val = val/(dims*sigma)
         local control = .5
         if val < 0 then control = -.5 end
         return (control*math.sqrt(1-math.exp(-2/pi*val*val)) +.5)
