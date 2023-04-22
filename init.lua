@@ -36,7 +36,7 @@ local function cos(angle)
 end
 
 
-local function get_random_sizes(qty,seed)
+function hill_noise.get_random_sizes(qty,seed)
     math.randomseed(seed)
     local waves = {}
     for i=1,qty do
