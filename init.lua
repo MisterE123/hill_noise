@@ -82,6 +82,8 @@ hill_noise.newNoise = function(sizes,seed) -- sizes is a list of wavelengths bet
 
 
         local val = 0
+        local rot1 = (golden % 1)*2*pi
+        local rot2 = 0
         for i,wavelength in ipairs(sizes) do
             local noiseadd = 0
             if dims == 2 then
@@ -91,8 +93,10 @@ hill_noise.newNoise = function(sizes,seed) -- sizes is a list of wavelengths bet
                 noiseadd = wavelength*0.5*(sin(offsets[i]+u/wavelength)+sin(offsets[i+1]+v/wavelength))
             end
             if dims == 3 then
-                local rot1 = (i*golden % 1)*2*pi
-                local rot2 = ((i+1)*golden % 1)*2*pi
+                if i>1 then
+                    rot1 = rot2
+                end
+                rot2 = ((i+1)*golden % 1)*2*pi
                 local sin1 = sin(rot1)
                 local cos1 = cos(rot1)
                 local sin2 = sin(rot2)
