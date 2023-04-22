@@ -1,4 +1,4 @@
-A noise algorithm by Bruce Hill, based of interfering sine waves, modified and adapted by MisterE
+A noise algorithm by Bruce Hill, based of interfering sine waves, modified and adapted by MisterE with help from Luatic
 
 ###Creating Noise:
 You can create a new noise with:
