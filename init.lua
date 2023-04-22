@@ -1,7 +1,8 @@
 hill_noise = {}
 
-local pi = 3.14159
+local pi = math.pi
 local golden = (math.sqrt(5)+1)/2
+local math_floor = math.floor
 
 -- Precompute sine values for angles between 0 and 2 * pi with 1024 elements
 local sine_table = {}
@@ -46,7 +47,7 @@ function hill_noise.get_random_sizes(qty,seed)
 end
 
 
-hillnoise.newNoise = function(sizes,seed) -- sizes is a list of wavelengths between 0 and 1
+hill_noise.newNoise = function(sizes,seed) -- sizes is a list of wavelengths between 0 and 1
                                       -- seed is used for random offsets and for sizes if sizes is a number
     local numwaves = #sizes
     math.randomseed(seed or math.random()) 
@@ -56,8 +57,8 @@ hillnoise.newNoise = function(sizes,seed) -- sizes is a list of wavelengths betw
     local waves = {}
 
     -- sizes is a list of wavelengths between 0 and 1, lets set their domain to be between 0 and 2pi
-    for i,size in pairs(sizes) do
-        size = size*2*pi
+    for i,size in ipairs(sizes) do
+        sizes[i] = size*2*pi
     end
 
     local offsets = {}
